@@ -1,0 +1,57 @@
+version: '3.7'
+
+services:
+
+  nginx:
+    build:
+      context: .
+      dockerfile: ./deploy/nginx/Dockerfile
+      args:
+        APP_CONTAINER_NAME: "masonite-app"
+    container_name: masonite-nginx
+    # volumes:
+      # - ./static:/usr/src/app/static
+    restart: unless-stopped
+    tty: true
+    environment:
+      - VIRTUAL_HOST=fertilethoughts.app
+      - VIRTUAL_PORT=80
+    networks:
+      - proxy
+      - applications
+    depends_on:
+      - app
+
+  app: &app
+    build:
+      context: .
+      dockerfile: ./deploy/app/Dockerfile
+      args:
+        INCLUDE_DEV_PACKAGES: '--dev'
+    container_name: masonite-app
+    # ports:
+    #   - 4000:4000
+      # - 9300:9300
+    volumes:
+      - .:/usr/src/app
+      # - /storage/
+    restart: unless-stopped
+    tty: true
+    environment:
+      - GUNICORN_WORKERS=1
+      - GUNICORN_RELOAD=--reload
+    working_dir: /usr/src/app
+    networks:
+      - services
+      - applications
+
+networks:
+  services:
+    external:
+      name: services
+  applications:
+    external:
+      name: applications
+  proxy:
+    external:
+      name: proxy
