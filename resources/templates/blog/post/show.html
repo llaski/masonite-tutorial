@@ -1,0 +1,19 @@
+{% if exists('auth/base') %} {% extends 'auth/base.html' %} {% else %} {%
+extends 'base.html' %} {% endif %} {% block content %}
+
+<div class="container text-center">
+  <div class="title m-b-md">
+    Post
+  </div>
+
+  <p><a href="{{ route('blog.index') }}">< Back</a></p>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <h3>{{ post.title }} by {{ post.author.name }}</h3>
+        <Br>
+            {{ post.body }}
+    </div>
+</div>
+</div>
+{% endblock %}

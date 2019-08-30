@@ -7,6 +7,7 @@ from app.http.middleware.AuthenticationMiddleware import \
 from app.http.middleware.CsrfMiddleware import CsrfMiddleware
 from app.http.middleware.LoadUserMiddleware import LoadUserMiddleware
 from app.http.middleware.VerifyEmailMiddleware import VerifyEmailMiddleware
+from app.http.middleware.HelloWorldMiddleware import HelloWorldMiddleware
 
 """HTTP Middleware
 HTTP middleware is middleware that will be ran on every request. Middleware
@@ -30,4 +31,5 @@ of middleware (middleware stacks).
 ROUTE_MIDDLEWARE = {
     'auth': AuthenticationMiddleware,
     'verified': VerifyEmailMiddleware,
+    'helloworld': HelloWorldMiddleware,
 }

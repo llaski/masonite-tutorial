@@ -1,3 +1,27 @@
 this is a project view
 
 <h1>Hello {{ name }}!</h1>
+
+
+{% if project %}
+<h3>{{ project.name }} by {{ project.manager.name }}</h3>
+
+<br>
+<div>
+    {{ project.description }}
+</div>
+<hr>
+{% endif %}
+
+{% if projects %}
+{% for project in projects %}
+    
+    <h3>{{ project.name }} by {{ project.manager.name }}</h3>
+
+    <br>
+    <div>
+        {{ project.description }}
+    </div>
+    <hr>
+{% endfor %}
+{% endif %}

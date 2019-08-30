@@ -3,7 +3,8 @@
 from masonite.request import Request
 from masonite.view import View
 from masonite.controllers import Controller
-
+from app.Project import Project
+from masonite.request import Request
 
 class ProjectController(Controller):
     """ProjectController Controller Class."""
@@ -16,7 +17,18 @@ class ProjectController(Controller):
         """
         self.request = request
 
-    def show(self, view: View):
+    def index(self, view: View):
+        projects = Project.all()
+
         return view.render('projects', {
-            'name': 'Joe'
+            'name': 'Joe',
+            'projects': projects,
+        })
+    
+    def show(self, view: View, request: Request):
+        project = Project.find(request.param('id'))
+
+        return view.render('projects', {
+            'name': 'Joe',
+            'project': project,
         })

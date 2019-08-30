@@ -1,0 +1,30 @@
+{% if exists('auth/base') %} {% extends 'auth/base.html' %} {% else %} {%
+extends 'base.html' %} {% endif %} {% block content %}
+<div class="container text-center">
+  <div class="title m-b-md">
+    Create Post
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <form action="{{ route('blog.store') }}" method="POST">
+
+        {{ csrf_field }}
+          <div class="form-group">
+              <label for="">Title</label>
+              <input type="text" class="form-control" name="title">
+          </div>
+
+          <div class="form-group">
+              <label for="">Body</label>
+              <textarea class="form-control" name="body" cols="30" rows="10"></textarea>
+          </div>
+
+          <div class="form-group">
+              <button class="btn btn-success">Save</button>
+          </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
